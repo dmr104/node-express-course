@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 
 const mockUserData = [
 	{name: 'Mark'},
@@ -23,5 +26,24 @@ app.get('/users/:id', function(req,res){
 	});
 
 });
+
+app.post('/login', function(req,res){
+	const username=req.body.username;
+	const password=req.body.password;
+	const mockUsername="billythekid";
+	const mockPassword="superSecret";
+	if(username===mockUserName && password===mockPassword){
+		res.json({
+			success: true,
+			message: 'password and username match!',
+			token: 'encrytped token goes here'
+		})
+	} else {
+		res.json({
+			success: false,
+			message: 'password and username don\'t match!'
+		})
+	}
+})
 
 app.listen(8000, function(){console.log("server is running")});
